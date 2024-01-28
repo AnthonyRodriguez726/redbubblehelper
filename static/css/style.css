@@ -1,0 +1,103 @@
+/* /static/css/style.css */
+
+/* Overall Body Styles */
+body.custom-body {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light grey text for readability */
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack elements vertically */
+    min-height: 100vh; /* Minimum height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+/* Navbar Styles */
+.navbar.custom-navbar {
+    background-color: #242424; /* Dark gray for navbar */
+    color: #e0e0e0;
+}
+
+.navbar.custom-navbar .navbar-brand,
+.navbar.custom-navbar .nav-link {
+    color: #e0e0e0; /* Light grey text for readability */
+}
+
+.navbar.custom-navbar .nav-link:hover,
+.navbar.custom-navbar .nav-link.active {
+    color: #ffffff; /* Brighter color on hover/active */
+}
+
+/* Jumbotron Styles */
+.jumbotron.custom-jumbotron {
+    background-color: #333333; /* Medium dark grey for jumbotron */
+    color: #e0e0e0; /* Light grey text */
+}
+
+/* Footer Styles */
+footer.custom-footer {
+    background-color: #1f1f1f; /* Same as navbar for consistency */
+    color: #e0e0e0;
+    flex-shrink: 0; /* Prevent the footer from shrinking */
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #5664d2; /* A soft blue for buttons */
+    border-color: #5664d2;
+    color: #e0e0e0;
+}
+
+/* Link Styles */
+a, .btn-link {
+    color: #9fa8da; /* Lighter blue for links */
+}
+
+/* Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff; /* White for headings */
+}
+
+/* Additional styles for page content */
+.page-content {
+    flex: 1; /* Flex grow to occupy available space */
+}
+
+
+/* Common Page Styles */
+.page-section {
+    background-color: #1f1f1f; /* Dark background for sections */
+    color: #e0e0e0; /* Light grey text for readability */
+    padding: 40px 0; /* Spacing for top and bottom */
+    margin-bottom: 20px; /* Space between sections */
+}
+
+.page-section h1 {
+    color: #ffffff; /* Brighter color for main headings */
+    margin-bottom: 20px; /* Spacing after headings */
+}
+
+.page-section p, .page-section li {
+    color: #cccccc; /* Slightly lighter text for body */
+}
+
+/* Contact Page Specific */
+.contact-form {
+    background-color: #242424; /* Slightly different background for form */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.contact-form input, .contact-form textarea {
+    background-color: #333333; /* Dark input backgrounds */
+    color: #ffffff; /* White text for inputs */
+    border: 1px solid #444444; /* Slightly lighter border for inputs */
+}
+
+/* FAQs Page Specific */
+.faq-question {
+    color: #a2d2ff; /* Soft blue for questions */
+}
+
+.faq-answer {
+    color: #cccccc; /* Slightly lighter text for answers */
+    margin-bottom: 15px; /* Spacing after each answer */
+}

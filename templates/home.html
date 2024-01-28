@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Redbubble Helper{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="jumbotron jumbotron-fluid custom-jumbotron">
+  <div class="container text-center">
+    <h1 class="display-4">Creative Designs Made Easy</h1>
+    <p class="lead">Explore, create, and analyze t-shirt designs seamlessly.</p>
+    <a href="#" class="btn btn-light btn-lg">Get Started</a>
+  </div>
+</div>
+
+<!-- Features Overview -->
+<div class="container text-center my-5">
+  <h2>Features</h2>
+  <div class="row mt-4">
+    <!-- Feature 1 -->
+    <div class="col-md-4">
+      <h3>Design Tool</h3>
+      <p>Create stunning designs with our user-friendly tools.</p>
+    </div>
+    <!-- Feature 2 -->
+    <div class="col-md-4">
+      <h3>Niche Analysis</h3>
+      <p>Understand market demand and trends.</p>
+    </div>
+    <!-- Feature 3 -->
+    <div class="col-md-4">
+      <h3>Community Insights</h3>
+      <p>Get feedback and ideas from the community.</p>
+    </div>
+  </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">How It Works</h2>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <h3>Step 1</h3>
+            <p>Enter your design idea or keyword to start.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Step 2</h3>
+            <p>Use our tools to create or refine your design.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Step 3</h3>
+            <p>Analyze niche saturation and market trends.</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Vue App Container -->
+<div class="container" id="vue-app">
+    <!-- Dynamic or other static content here -->
+</div>
+
+<!-- Additional Sections like Features Overview can go here -->
+{% endblock %}
+
+{% block scripts %}
+<script>
+new Vue({
+    el: '#vue-app',
+    data: {
+
+    }
+});
+</script>
+{% endblock %}

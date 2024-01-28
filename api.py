@@ -1,4 +1,5 @@
-from flask import request, jsonify
+from flask import request, jsonify, render_template
+from flask_mail import Mail, Message
 from datetime import datetime, timedelta
 from BingImageCreator import ImageGen
 import search_info
@@ -107,3 +108,24 @@ def register_api_routes(app):
             return jsonify({"images": image_links})
         else:
             return jsonify({"error": "Failed to generate images"}), 500
+
+
+    @app.route('/about')
+    def about():
+        return render_template('about.html')
+
+    @app.route('/features')
+    def features():
+        return render_template('features.html')
+
+    @app.route('/contact')
+    def contact():
+        return render_template('contact.html')
+
+    @app.route('/faqs')
+    def faqs():
+        return render_template('faqs.html')
+
+    @app.route('/underconstruction')
+    def underconstruction():
+        return render_template('underconstruction.html')
