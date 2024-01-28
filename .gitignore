@@ -47,6 +47,7 @@ coverage.xml
 # Flask stuff:
 instance/
 .webassets-cache
+*.sh
 
 # Scrapy stuff:
 .scrapy
