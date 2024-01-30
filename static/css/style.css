@@ -2,12 +2,8 @@
 
 /* Overall Body Styles */
 body.custom-body {
-    background-color: #121212; /* Dark background */
+    background-color: #121212; /* Dark background for the overall page */
     color: #e0e0e0; /* Light grey text for readability */
-    display: flex; /* Enable flexbox */
-    flex-direction: column; /* Stack elements vertically */
-    min-height: 100vh; /* Minimum height of the viewport */
-    margin: 0; /* Remove default margin */
 }
 
 /* Navbar Styles */
@@ -79,27 +75,66 @@ h1, h2, h3, h4, h5, h6 {
     color: #cccccc; /* Slightly lighter text for body */
 }
 
-/* Contact Page Specific */
-.contact-form {
-    background-color: #242424; /* Slightly different background for form */
-    padding: 20px;
-    border-radius: 5px;
+
+/* Home Page CSS */
+
+.hero-section {
+    background-color: #242424; /* Different background for Hero section */
+    padding: 4rem 0; /* Ample padding for visual space */
 }
 
-.contact-form input, .contact-form textarea {
-    background-color: #333333; /* Dark input backgrounds */
-    color: #ffffff; /* White text for inputs */
-    border: 1px solid #444444; /* Slightly lighter border for inputs */
+/* Featurette Section */
+
+.featurette-section {
+    background-color: #2a2e35; /* Slightly different background color for contrast */
+    padding: 2rem 0; /* Spacing around featurettes */
+}
+.featurette-section .card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* FAQs Page Specific */
-.faq-question {
-    color: #a2d2ff; /* Soft blue for questions */
+.featurette-section .card-img-top {
+    height: 180px; /* Fixed height for all images */
+    object-fit: cover; /* Ensure images cover the area well */
 }
 
-.faq-answer {
-    color: #cccccc; /* Slightly lighter text for answers */
-    margin-bottom: 15px; /* Spacing after each answer */
+.featurette-section .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure the images and cards are responsive */
+@media (max-width: 767px) {
+    .featurette-section .card-img-top {
+        height: auto;
+    }
+}
+
+/* Call to Action Section */
+.cta-section {
+    background-color: rgba(0, 123, 255, 0.65); /* Dimmed background color */
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: #2a2e35; /* Dark background */
+    padding: 2rem 0;
+}
+
+.testimonials-section .testimonial {
+    border-left: 5px solid #007bff; /* Brand color for a testimonial border */
+    min-height: 150px; /* Fixed min-height for uniformity */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+    .testimonials-section .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
 
 
