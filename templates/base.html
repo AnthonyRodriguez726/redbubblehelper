@@ -7,34 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="custom-body">
     <!-- /templates/base.html -->
-    <nav class="navbar navbar-expand-lg custom-navbar">
-        <a class="navbar-brand" href="https://redbubblehelper.com">Redbubble Helper</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://redbubblehelper.com">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://redbubblehelper.com/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://redbubblehelper.com/features">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://redbubblehelper.com/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://redbubblehelper.com/faqs">FAQs</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https://redbubblehelper.com">Redbubble Helper</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://redbubblehelper.com">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://redbubblehelper.com/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://redbubblehelper.com/features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://redbubblehelper.com/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://redbubblehelper.com/faqs">FAQs</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -45,13 +47,11 @@
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center p-3 custom-footer">
-      © 2023 Redbubble Helper: <a class="text-light" href="mailto:anthonyrodriguez726@gmail.com">Contact Us</a>
+      © 2023 Redbubble Helper: <a class="text-light" href="https://redbubblehelper.com/contact">Contact Us</a>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     {% block scripts %}

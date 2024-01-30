@@ -110,6 +110,10 @@ def register_api_routes(app):
             return jsonify({"error": "Failed to generate images"}), 500
 
 
+    @app.route('/hometest')
+    def hometest():
+        return render_template('home.html')
+
     @app.route('/about')
     def about():
         return render_template('about.html')

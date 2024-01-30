@@ -3,9 +3,43 @@
 {% block title %}FAQs{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>Frequently Asked Questions</h1>
-    <p>Answers to common questions about your application.</p>
-    <!-- List out FAQs here -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center display-4 mb-5 text-white">Frequently Asked Questions</h1>
+        </div>
+    </div>
+
+    <div class="faq-container">
+	    <div class="accordion accordion-flush" id="faqsAccordion">
+	        <!-- FAQ Item 1 -->
+	        <div class="accordion-item bg-dark text-white">
+	            <h2 class="accordion-header" id="headingOne">
+	                <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+	                    What is Redbubble Helper?
+	                </button>
+	            </h2>
+	            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqsAccordion">
+	                <div class="accordion-body text-light bg-secondary px-4 py-3">
+	                    Redbubble Helper is a tool designed to help artists and designers optimize their presence on Redbubble.
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="accordion-item bg-dark text-white">
+	            <h2 class="accordion-header" id="headingTwo">
+	                <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	                    What is Redbubble Helper?
+	                </button>
+	            </h2>
+	            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqsAccordion">
+	                <div class="accordion-body text-light bg-secondary px-4 py-3">
+	                    Redbubble Helper is a tool designed to help artists and designers optimize their presence on Redbubble.
+	                </div>
+	            </div>
+	        </div>
+	        <!-- Repeat for other FAQ items -->
+	    </div>
+	</div>
 </div>
 {% endblock %}

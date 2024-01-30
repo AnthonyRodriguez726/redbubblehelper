@@ -1,11 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}About{% endblock %}
+{% block title %}About Us{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>About Us</h1>
-    <p>Information about your application, its mission, and the team.</p>
-    <!-- Add more content about your application and team here -->
+<div class="about-container">
+    <div class="about-header">
+        <h1>About Redbubble Helper</h1>
+    </div>
+
+    <div class="about-mission">
+        <h2>Our Mission</h2>
+        <p>We aim to provide innovative solutions to assist artists and designers in creating unique products and effectively analyzing market trends. Our tools empower creativity and market understanding.</p>
+    </div>
+
+    <div class="about-team">
+        <h2>Our Team</h2>
+        <div class="team-members">
+            <!-- Team Member Example with Placeholder Image -->
+            <div class="team-member">
+                <img src="https://via.placeholder.com/150" alt="Team Member">
+                <div class="member-info">
+                    <h3>Jane Doe</h3>
+                    <p><a href="https://www.linkedin.com/in/anthonyrodriguezweb/" target="_blank" class="team-link">Lead Developer</a></p>
+                </div>
+            </div>
+            <!-- Repeat for other team members with placeholder images -->
+        </div>
+    </div>
+
+    <div class="about-values">
+        <h2>Our Values</h2>
+        <ul>
+            <li>Creativity and Innovation</li>
+            <li>Customer-Centric Approach</li>
+            <li>Integrity and Transparency</li>
+        </ul>
+    </div>
 </div>
 {% endblock %}
