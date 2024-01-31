@@ -9,7 +9,8 @@ from math import ceil
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 from datetime import datetime, timedelta
-from db_config import get_connection
+from db_config import db
+from models import User, Subscription, TopTVShow
 from BingImageCreator import ImageGen
 
 auth_cookie = os.environ.get('BING_AUTH_COOKIE')
@@ -77,46 +78,34 @@ def search_redbubble(query):
 
 def find_top_tv_shows():
     logging.debug("Function start")
-    conn = None  # Initialize conn outside of the try block
     try:
-        conn = get_connection()
-        logging.debug("Database connection established")
-
-        cur = conn.cursor()
-
         # Check the last updated time
         logging.debug("Checking last update time")
-        cur.execute("SELECT MAX(last_updated) FROM top_tv_shows")
-        last_updated_result = cur.fetchone()
-        last_updated = last_updated_result[0] if last_updated_result else None
-
-        if last_updated and datetime.now() - last_updated < timedelta(hours=48):
+        last_updated_result = db.session.query(db.func.max(TopTVShow.last_updated)).scalar()
+        if last_updated_result and datetime.now() - last_updated_result < timedelta(hours=48):
             # Data is fresh, fetch from database
-            cur.execute("SELECT title, href FROM top_tv_shows ORDER BY id")
-            shows = cur.fetchall()
+            shows = TopTVShow.query.order_by(TopTVShow.id).all()
             logging.debug("Fetching data from database")
         else:
             # Data is old or not present, scrape the website
-            scraped_shows = scrape_top_tv_shows()  # Scrape function to be implemented
+            scraped_shows = scrape_top_tv_shows()
             logging.debug("Scraping new data")
 
             # Clear old data
-            cur.execute("DELETE FROM top_tv_shows")
+            TopTVShow.query.delete()
 
             # Insert new data
             for show in scraped_shows:
-                cur.execute("INSERT INTO top_tv_shows (title, href) VALUES (%s, %s)", (show['text'], show['href']))
+                new_show = TopTVShow(title=show['text'], href=show['href'])
+                db.session.add(new_show)
                 logging.debug("Data inserted into database")
 
-            conn.commit()  # Commit the transaction
+            db.session.commit()  # Commit the transaction
             shows = scraped_shows
 
     except Exception as e:
         logging.error(f"An error occurred: {e}")
-    finally:
-        if conn:
-            conn.close()
-            logging.debug("Database connection closed")
+        db.session.rollback()
 
     # Randomize and return the top 25 shows
     random.shuffle(shows)
@@ -135,9 +124,9 @@ def scrape_top_tv_shows():
         time.sleep(1)
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            return f"Error: Received status code {response.status_code}"
+            logging.error(f"Error: Received status code {response.status_code}")
+            return []
 
-        time.sleep(1)
         soup = BeautifulSoup(response.text, 'html.parser')
         class_elements = soup.find_all(class_="article_movie_title")
 
@@ -154,7 +143,8 @@ def scrape_top_tv_shows():
         return results
 
     except Exception as e:
-        return f"An error occurred: {e}"
+        logging.error(f"An error occurred: {e}")
+        return []
 
 
 def scrape_top_movies():
@@ -251,14 +241,11 @@ def scrape_top_books():
         return f"An error occurred: {e}"
 
 def find_top_media():
-    cst_timezone = pytz.timezone('America/Chicago')  # CST timezone
+    cst_timezone = pytz.timezone('America/Chicago')
     current_time_cst = datetime.now(cst_timezone).strftime('%Y-%m-%d %I:%M:%S %p')
     logging.debug(f"Find Top Media started at {current_time_cst}")
-    
-    try:
-        conn = get_connection()
-        cur = conn.cursor()
 
+    try:
         # Fetch media from various sources and update database
         media_sources = {
             'tv show': scrape_top_tv_shows,
@@ -271,37 +258,34 @@ def find_top_media():
             logging.debug(f"Fetching {media_type}")
 
             # Check the last updated time
-            cur.execute("SELECT MAX(last_updated) FROM top_media WHERE media_type = %s", (media_type,))
-            last_updated_result = cur.fetchone()
-            last_updated = last_updated_result[0] if last_updated_result else None
-
-            if not last_updated or datetime.now() - last_updated > timedelta(hours=48):
+            last_updated_result = db.session.query(db.func.max(TopMedia.last_updated)).filter(TopMedia.media_type == media_type).scalar()
+            if not last_updated_result or datetime.now() - last_updated_result > timedelta(hours=48):
                 # Data is old or not present, scrape new data
                 scraped_media = scrape_function()
                 logging.debug(f"Scraping new data for {media_type}")
 
                 # Update database with new data
+                # Clear old data
+                TopMedia.query.filter(TopMedia.media_type == media_type).delete()
                 for media_item in scraped_media:
-                    cur.execute("INSERT INTO top_media (title, href, media_type, last_updated) VALUES (%s, %s, %s, %s) ON CONFLICT (href) DO NOTHING",
-                                (media_item['text'], media_item['href'], media_type, datetime.now()))
-                
-                conn.commit()  # Commit the transaction
+                    new_media = TopMedia(title=media_item['text'], href=media_item['href'], media_type=media_type)
+                    db.session.add(new_media)
+
+                db.session.commit()  # Commit the transaction
 
         # Fetch a balanced number of items per media type from the database
         final_media_list = []
         for media_type in media_sources.keys():
-            cur.execute("SELECT title, href, media_type FROM top_media WHERE media_type = %s ORDER BY RANDOM() LIMIT 7", (media_type,))
-            final_media_list.extend(cur.fetchall())
+            media_items = TopMedia.query.filter(TopMedia.media_type == media_type).order_by(db.func.random()).limit(7).all()
+            final_media_list.extend(media_items)
 
         # Shuffle the final list to mix media types
         random.shuffle(final_media_list)
 
-        return final_media_list[:25]  # Ensure only 25 items are returned
+        # Convert TopMedia objects to dictionaries
+        final_media_dicts = [{'title': media.title, 'href': media.href, 'media_type': media.media_type} for media in final_media_list[:25]]
+        return final_media_dicts
 
     except Exception as e:
         logging.error(f"An error occurred: {e}")
         return []
-    finally:
-        if conn:
-            conn.close()
-            logging.debug("Database connection closed")

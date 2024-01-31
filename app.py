@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from db_config import db, User, Subscription
+from db_config import db
+from models import User, Subscription
 import logging
 import requests
 import os
@@ -10,10 +11,13 @@ import api  # Import API routes from api.py
 
 google_app_pass = os.environ.get('GOOGLE_APP_PASSWORD')
 database_pass = os.environ.get('POSTGRES_PASS')
+database_name = os.environ.get('DB_NAME')
+database_user = os.environ.get('DB_USER')
+database_host = os.environ.get('DB_HOST')
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://username:{database_pass}@localhost/dbname'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{database_user}:{database_pass}@{database_host}/{database_name}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
