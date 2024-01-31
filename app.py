@@ -1,15 +1,25 @@
 from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from db_config import db, User, Subscription
 import logging
 import requests
 import os
 import api  # Import API routes from api.py
 
+google_app_pass = os.environ.get('GOOGLE_APP_PASSWORD')
+database_pass = os.environ.get('POSTGRES_PASS')
+
 app = Flask(__name__)
 
-logging.basicConfig(level=logging.DEBUG, filename='debug.log', filemode='a', format='%(name)s - %(levelname)s - %(message)s')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://username:{database_pass}@localhost/dbname'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-google_app_pass = os.environ.get('GOOGLE_APP_PASSWORD')
+db.init_app(app)
+migrate = Migrate(app, db)
+
+logging.basicConfig(level=logging.DEBUG, filename='debug.log', filemode='a', format='%(name)s - %(levelname)s - %(message)s')
 
 # Configure Flask-Mail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
