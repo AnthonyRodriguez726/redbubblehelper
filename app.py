@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from db_config import db
 from models import User, Subscription
+from forms import RegistrationForm, LoginForm
+from werkzeug.utils import secure_filename
 import logging
 import requests
 import os
@@ -19,6 +21,8 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{database_user}:{database_pass}@{database_host}/{database_name}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = 'userUploads/'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
 
 db.init_app(app)
 migrate = Migrate(app, db)

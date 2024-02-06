@@ -17,49 +17,69 @@
                 <form id="contactForm">
                     <div class="mb-3">
                         <label for="contactName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="contactName" required>
+                        <input type="text" class="form-control" id="contactName" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="contactEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="contactEmail" required>
+                        <input type="email" class="form-control" id="contactEmail" name="email" required>
                     </div>
                     <div class="mb-3">
                         <label for="contactMessage" class="form-label">Message</label>
-                        <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
+                        <textarea class="form-control" id="contactMessage" name="message" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
+                <div id="formMessage"></div>
             </div>
         </div>
     </div>
 
     <div class="row mt-4">
-        <div class="col-lg-4 text-center">
-            <i class="fas fa-map-marker-alt mb-2"></i>
-            <p>123 Street Name, City, Country</p>
-        </div>
-        <div class="col-lg-4 text-center">
-            <i class="fas fa-phone mb-2"></i>
-            <p>+1 (555) 123-4567</p>
-        </div>
-        <div class="col-lg-4 text-center">
-            <i class="fas fa-envelope mb-2"></i>
-            <p>contact@example.com</p>
+        <div class="col-lg-12 text-center static-contact-email">
+            <i class="fas fa-envelope mb-2 email-icon"></i>
+            <p>anthonyrodriguez726@gmail.com</p>
         </div>
     </div>
 
     <div class="row mt-4 justify-content-center mb-5">
-        <div class="col-auto">
-            <a href="https://twitter.com/" class="btn btn-dark btn-social mx-2">
+        <div class="col-auto social-media-buttons">
+            <a href="https://twitter.com/realbellpep" target="_blank" class="social-button twitter">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://facebook.com/" class="btn btn-dark btn-social mx-2">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://instagram.com/" class="btn btn-dark btn-social mx-2">
-                <i class="fab fa-instagram"></i>
+            <a href="https://github.com/AnthonyRodriguez726" target="_blank" class="social-button github">
+                <i class="fab fa-github"></i>
             </a>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    fetch('/send_email', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        form.reset(); // Clear the form
+        document.getElementById('formMessage').textContent = 'Your message has been sent!';
+      } else {
+        document.getElementById('formMessage').textContent = 'There was an error sending your message.';
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      document.getElementById('formMessage').textContent = 'There was an error sending your message.';
+    });
+  });
+});
+</script>
 {% endblock %}

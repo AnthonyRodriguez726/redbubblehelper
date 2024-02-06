@@ -4,8 +4,8 @@ import random
 import os
 import requests
 import pytz
+from flask import current_app
 from openai import OpenAI
-from app import app
 from math import ceil
 from bs4 import BeautifulSoup
 from urllib.parse import quote
@@ -291,3 +291,23 @@ def find_top_media():
         except Exception as e:
             logging.error(f"An error occurred: {e}")
             return []
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
+
+def process_image(filepath):
+    api_key = os.getenv('REMOVE_BG_API_KEY')  # Ensure you've set this environment variable
+    response = requests.post(
+        'https://api.remove.bg/v1.0/removebg',
+        files={'image_file': open(filepath, 'rb')},
+        data={'size': 'auto'},
+        headers={'X-Api-Key': api_key},
+    )
+    if response.status_code == requests.codes.ok:
+        output_path = filepath.rsplit('.', 1)[0] + '_no_bg.png'
+        with open(output_path, 'wb') as out:
+            out.write(response.content)
+        return output_path
+    else:
+        print("Error:", response.status_code, response.text)
+        return filepath  # Return original if error

@@ -1,0 +1,29 @@
+
+/* Dark & Elegant Theme for About Page */
+.header {
+    background-color: #444;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.about-container {
+    margin-top:2%;
+    background-color: #555;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.team-member {
+    background-color: #666;
+    border: 1px solid #777;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.member-info {
+    text-align: center;
+}
+
+/* Rest of the CSS rules */

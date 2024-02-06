@@ -1,10 +1,20 @@
-from flask import request, jsonify, render_template
+from flask import Flask, request, jsonify, flash, redirect, url_for, render_template, send_file
 from flask_mail import Mail, Message
+from flask_login import login_user
+from models import User, db
+from forms import RegistrationForm, LoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 from BingImageCreator import ImageGen
+from email.mime.text import MIMEText
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 import search_info
+import smtplib
 import logging
 import pytz
+import os
 
 
 logging.basicConfig(level=logging.DEBUG, filename='debug.log', filemode='a', format='%(name)s - %(levelname)s - %(message)s')
@@ -128,8 +138,54 @@ def register_api_routes(app):
 
     @app.route('/faqs')
     def faqs():
-        return render_template('faqs.html')
+        return render_template('faqs.html')   
 
     @app.route('/underconstruction')
     def underconstruction():
         return render_template('underconstruction.html')
+
+    @app.route('/bgremover', methods=['GET', 'POST'])
+    def bgremover():
+        if request.method == 'POST':
+            # Check if the post request has the file part
+            if 'image' not in request.files:
+                return 'No file part', 400
+            file = request.files['image']
+            # If the user does not select a file, the browser submits an
+            # empty file without a filename.
+            if file.filename == '':
+                return 'No selected file', 400
+            if file and search_info.allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                processed_filepath = search_info.process_image(filepath)
+                return send_file(processed_filepath, as_attachment=True)
+        return render_template('bgremover.html')
+
+
+    @app.route('/send_email', methods=['POST'])
+    def send_email():
+        # Retrieve form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message_content = request.form.get('message')
+
+        # Create the email content
+        message = Mail(
+            from_email='anthonyrodriguez726@gmail.com',  # The email you verified with SendGrid
+            to_emails='anthonyrodriguez726@gmail.com',  # The destination email address
+            subject=f'New contact form submission from {name}',
+            html_content=f'<strong>Name:</strong> {name}<br>'
+                         f'<strong>Email:</strong> {email}<br><br>'
+                         f'<strong>Message:</strong><br>{message_content}'
+        )
+
+        # Send the message via SendGrid
+        try:
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            return jsonify(success=True), 200  # Return success response
+        except Exception as e:
+            print(e.message)
+            return jsonify(success=False, error=str(e)), 500  # Return error response

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQs{% endblock %}
+
+{% block content %}
+
+
+<form action="/bgremover" method="post" enctype="multipart/form-data">
+  <input type="file" name="image">
+  <input type="submit" value="Upload Image">
+</form>
+{% endblock %}

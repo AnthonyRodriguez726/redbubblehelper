@@ -6,6 +6,21 @@ body.custom-body {
     color: #e0e0e0; /* Light grey text for readability */
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-rows: 1fr auto; /* 1fr for content to take available space, auto for footer */
+    min-height: 100vh;
+}
+
+.main-content {
+    min-height: calc(100vh - 56px - 60px); /* Adjust based on navbar and footer height */
+}
+
 /* Navbar Styles */
 .navbar.custom-navbar {
     background-color: #242424; /* Dark gray for navbar */
@@ -32,7 +47,6 @@ body.custom-body {
 footer.custom-footer {
     background-color: #1f1f1f; /* Same as navbar for consistency */
     color: #e0e0e0;
-    flex-shrink: 0; /* Prevent the footer from shrinking */
 }
 
 /* Button Styles */
@@ -183,11 +197,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .team-member img {
-    width: 150px;
-    height: 150px;
+	max-width: 150px;
+    width: 100%;
+    height: auto;
     border-radius: 50%;
     border: 3px solid #5664d2;
     margin-bottom: 10px;
+    transition: box-shadow 0.5s ease-in-out;
 }
 
 .team-link {
@@ -369,6 +385,27 @@ h1, h2, h3, h4, h5, h6 {
     color: #cccccc;
 }
 
+.social-button {
+    display: inline-block;
+    margin: 0 10px;
+    color: #fff; /* White icons */
+    font-size: 24px; /* Icon size */
+}
+
+.static-contact-email {
+	display: table;
+	width: auto;
+	margin: auto;
+}
+
+.social-button.twitter:hover { color: #1da1f2; } 
+.social-button.github:hover { color: #2dba4e; } 
+.static-contact-email:hover .email-icon { color: #0063b0; }
+
+.formContact {
+	color: #78e08f;
+    margin-top: 10px;
+}
 
 
 /* FAQs Page Enhanced Styles for Dark Mode */
@@ -423,4 +460,38 @@ h1, h2, h3, h4, h5, h6 {
 .faq-container {
     max-width: 900px; /* Set a max-width for the container */
     margin: auto;
+}
+
+/* Corrected styles for the features grid */
+@media (min-width: 992px) { /* Breakpoint for large screens */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Create a three-column layout */
+        gap: 20px; /* Spacing between cards */
+    }
+    .feature {
+        margin-bottom: 20px; /* Spacing below each card */
+    }
+}
+
+
+/* Ensures that the main content area fills the space and pushes the footer to the bottom */
+
+
+/* Corrected styles for the grid container and page content to ensure the footer sticks to the bottom */
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* This ensures that the container is at least the height of the viewport */
+}
+
+.page-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* This ensures that the content expands to fill the available space */
+}
+
+.team-member:hover img {
+    box-shadow: 0 0 20px #6a7bff;
+    transition: box-shadow 0.3s ease-in-out;
 }
