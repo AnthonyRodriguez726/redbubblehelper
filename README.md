@@ -1,5 +1,7 @@
 # Redbubble Helper
-**Sign up for updates about our Website, API, and Custom GPT here! https://redbubblehelper.com/**
+**Sign up for updates about our Website, API, and Custom GPT here: https://redbubblehelper.com/**
+
+**Try our Custom GPT here: https://chat.openai.com/g/g-9FedJyFKd-t-shirt-designer-and-sales-expert** *work in progress*
 
 ## Description
 
