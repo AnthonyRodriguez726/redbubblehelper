@@ -77,7 +77,7 @@ logs/
 Thumbs.db
 myenv/
 config/
-.ini
+*.ini
 .idea/
 .vscode/
 uploads/
