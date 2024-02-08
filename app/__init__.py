@@ -2,12 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
+from .extensions import db
 from .main import site
 from .api import api_bp
 import logging
 
-
-db = SQLAlchemy()
 
 mail = Mail()
 
@@ -29,7 +28,8 @@ def create_app():
     # Logger Settings
     logging.basicConfig(level=logging.DEBUG, filename='/home/bellpep/RedbubbleHelper/logs/debug.log', filemode='a', format='%(name)s - %(levelname)s - %(message)s')
 
-    # Models
-    from app import models
+    # Deferred model import
+    with app.app_context():
+        from app import models
 
     return app

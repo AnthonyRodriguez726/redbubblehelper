@@ -4,9 +4,9 @@ from math import ceil
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 from datetime import datetime, timedelta
-from config.db_config import db
 from app.models import User, Subscription, TopTVShow, TopMedia
 from BingImageCreator import ImageGen
+from ..extensions import db
 import time
 import logging
 import random
@@ -72,42 +72,6 @@ def search_redbubble(query):
     except Exception as e:
         return f"An error occurred: {e}", url
 
-def find_top_tv_shows():
-    logging.debug("Function start")
-    try:
-        # Check the last updated time
-        logging.debug("Checking last update time")
-        last_updated_result = db.session.query(db.func.max(TopTVShow.last_updated)).scalar()
-        if last_updated_result and datetime.now() - last_updated_result < timedelta(hours=48):
-            # Data is fresh, fetch from database
-            shows = TopTVShow.query.order_by(TopTVShow.id).all()
-            logging.debug("Fetching data from database")
-        else:
-            # Data is old or not present, scrape the website
-            scraped_shows = scrape_top_tv_shows()
-            logging.debug("Scraping new data")
-
-            # Clear old data
-            TopTVShow.query.delete()
-
-            # Insert new data
-            for show in scraped_shows:
-                new_show = TopTVShow(title=show['text'], href=show['href'])
-                db.session.add(new_show)
-                logging.debug("Data inserted into database")
-
-            db.session.commit()  # Commit the transaction
-            shows = scraped_shows
-
-    except Exception as e:
-        logging.error(f"An error occurred: {e}")
-        db.session.rollback()
-
-    # Randomize and return the top 25 shows
-    random.shuffle(shows)
-    return shows[:25]
-
-
 def scrape_top_tv_shows():
     logging.debug("Scraping top tv shows")
     try:
@@ -132,7 +96,6 @@ def scrape_top_tv_shows():
             if a_tag and a_tag.has_attr('href'):
                 href = a_tag['href']
                 text = a_tag.get_text(strip=True)
-                # Add 'media_type': 'tv' to each result item
                 results.append({'href': href, 'text': text, 'media_type': 'tv show'})
 
         random.shuffle(results)
@@ -178,7 +141,7 @@ def scrape_top_movies():
 def scrape_top_anime():
     logging.debug("Scraping top anime")
     try:
-        url = "https://myanimelist.net/topanime.php?type=airing"  # Replace with the actual URL of the top anime page
+        url = "https://myanimelist.net/topanime.php?type=airing"
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
@@ -268,7 +231,7 @@ def find_top_media():
                         new_media = TopMedia(title=media_item['text'], href=media_item['href'], media_type=media_type)
                         db.session.add(new_media)
 
-                    db.session.commit()  # Commit the transaction
+                    db.session.commit()
 
             # Fetch a balanced number of items per media type from the database
             final_media_list = []
@@ -291,7 +254,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
 def process_image(filepath):
-    api_key = os.getenv('REMOVE_BG_API_KEY')  # Ensure you've set this environment variable
+    api_key = os.getenv('REMOVE_BG_API_KEY')
     response = requests.post(
         'https://api.remove.bg/v1.0/removebg',
         files={'image_file': open(filepath, 'rb')},
