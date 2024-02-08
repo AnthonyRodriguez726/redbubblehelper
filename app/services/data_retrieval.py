@@ -1,18 +1,18 @@
-import time
-import logging
-import random
-import os
-import requests
-import pytz
 from flask import current_app
 from openai import OpenAI
 from math import ceil
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 from datetime import datetime, timedelta
-from db_config import db
-from models import User, Subscription, TopTVShow, TopMedia
+from config.db_config import db
+from app.models import User, Subscription, TopTVShow, TopMedia
 from BingImageCreator import ImageGen
+import time
+import logging
+import random
+import os
+import requests
+import pytz
 
 auth_cookie = os.environ.get('BING_AUTH_COOKIE')
 
@@ -32,16 +32,13 @@ def generate_design(prompt):
         links = image_gen.get_images(prompt)
         return links
     except Exception as e:
-        # Handle or log the exception as needed
         return None
 
 def search_redbubble(query):
     try:
-        # Encode the query for URL
         encoded_query = quote(query)
         url = f"https://www.redbubble.com/shop/?query={encoded_query}"
 
-        # Set headers
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
@@ -49,14 +46,13 @@ def search_redbubble(query):
 
         time.sleep(1)
         
-        # Make a request to the URL
         response = requests.get(url, headers=headers)
 
-        # Check if the request was successful
+
         if response.status_code != 200:
             return f"Error: Received status code {response.status_code}", url
 
-        # Parse the HTML with BeautifulSoup
+
         soup = BeautifulSoup(response.text, 'html.parser')
 
 
@@ -65,7 +61,6 @@ def search_redbubble(query):
 
         results_info = soup.find_all(contains_results)
 
-        # Extract and return results and URL
         if results_info and results_info[0].text:
             logging.debug(f"{results_info[0].text.strip()} for {query}")
             return results_info[0].text.strip(), url
@@ -242,7 +237,7 @@ def scrape_top_books():
         return f"An error occurred: {e}"
 
 def find_top_media():
-    with app.app_context():
+    with current_app.app_context():
         cst_timezone = pytz.timezone('America/Chicago')
         current_time_cst = datetime.now(cst_timezone).strftime('%Y-%m-%d %I:%M:%S %p')
         logging.debug(f"Find Top Media started at {current_time_cst}")

@@ -21,6 +21,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+node_modules/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -69,9 +70,15 @@ target/
 
 # Log files
 *.log
+logs/
 
 # Others
 .DS_Store
 Thumbs.db
 myenv/
+config/
 .ini
+.idea/
+.vscode/
+uploads/
+privacy_policy.html

@@ -1,4 +1,4 @@
-from db_config import db
+from config.db_config import db
 from datetime import datetime
 
 class User(db.Model):
