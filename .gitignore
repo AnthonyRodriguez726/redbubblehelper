@@ -82,3 +82,4 @@ config/
 .vscode/
 uploads/
 privacy_policy.html
+gunicorn_log.txt
