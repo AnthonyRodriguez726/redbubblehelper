@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="register-form">
+                <h2 class="text-center">Register</h2>
+                <form method="POST">
+                    <!-- CSRF Token -->
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.username.label(class_="form-control-label") }}
+                        {{ form.username(class_="form-control form-control-lg") }}
+                        {% if form.username.errors %}
+                        <span class="error-message">{{ form.username.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label(class_="form-control-label") }}
+                        {{ form.email(class_="form-control form-control-lg") }}
+                        {% if form.email.errors %}
+                        <span class="error-message">{{ form.email.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label(class_="form-control-label") }}
+                        {{ form.password(class_="form-control form-control-lg") }}
+                        {% if form.password.errors %}
+                        <span class="error-message">{{ form.password.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                    </div>
+                </form>
+                <div class="text-center my-4 account-query"> <!-- Added a specific class 'account-query' -->
+                    Already have an account? <a href="/login" class="sign-in-link">Sign in</a>
+                </div>
+                <div class="social-login text-center my-4"> <!-- Adjusted margin for better spacing -->
+                  <p>Register with:</p>
+                  <div class="d-flex justify-content-center">
+                    <a href="/auth/google" class="btn btn-outline-danger social-btn mr-2"><i class="fab fa-google fa-lg"></i></a>
+                    <a href="/auth/twitter" class="btn btn-outline-info social-btn mr-2"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="/auth/github" class="btn btn-outline-secondary social-btn"><i class="fab fa-github fa-lg"></i></a>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script>
+new Vue({
+  el: '#app',
+  data() {
+    return {
+      form: {
+        username: '',
+        email: '',
+        password: ''
+      },
+      errors: {}
+    }
+  },
+  methods: {
+    submitForm() {
+      axios.post('/register', this.form)
+        .then(response => {
+          window.location.href = '/login'; // Redirect on success
+        })
+        .catch(error => {
+          if (error.response && error.response.data) {
+            // Assuming errors are returned as an object with field names as keys
+            this.errors = error.response.data.errors || {};
+          }
+        });
+    }
+  }
+});
+</script>

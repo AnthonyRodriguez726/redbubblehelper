@@ -1,0 +1,581 @@
+/* /static/css/style.css */
+
+/* Overall Body Styles */
+body.custom-body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 100vh;
+}
+
+.main-content {
+    min-height: calc(100vh - 56px - 60px);
+}
+
+/* Navbar Styles */
+.navbar.custom-navbar {
+    background-color: #242424;
+    color: #e0e0e0;
+}
+
+.navbar.custom-navbar .navbar-brand,
+.navbar.custom-navbar .nav-link {
+    color: #e0e0e0;
+}
+
+.navbar.custom-navbar .nav-link:hover,
+.navbar.custom-navbar .nav-link.active {
+    color: #ffffff;
+}
+
+/* Jumbotron Styles */
+.jumbotron.custom-jumbotron {
+    background-color: #333333;
+    color: #e0e0e0;
+}
+
+/* Footer Styles */
+footer.custom-footer {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+}
+
+/* Link Styles */
+a, .btn-link {
+    color: #9fa8da;
+}
+
+/* Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+}
+
+/* Additional styles for page content */
+.page-content {
+    flex: 1;
+}
+
+
+/* Common Page Styles */
+.page-section {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    padding: 40px 0;
+    margin-bottom: 20px;
+}
+
+.page-section h1 {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.page-section p, .page-section li {
+    color: #cccccc;
+}
+
+
+/* Home Page CSS */
+
+.hero-section {
+    background-color: #242424;
+    padding: 4rem 0;
+}
+
+/* Featurette Section */
+
+.featurette-section {
+    background-color: #2a2e35;
+    padding: 2rem 0;
+}
+.featurette-section .card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featurette-section .card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.featurette-section .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure the images and cards are responsive */
+@media (max-width: 767px) {
+    .featurette-section .card-img-top {
+        height: auto;
+    }
+}
+
+/* Call to Action Section */
+.cta-section {
+    background-color: rgba(0, 123, 255, 0.65); /* Dimmed background color */
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: #2a2e35; /* Dark background */
+    padding: 2rem 0;
+}
+
+.testimonials-section .testimonial {
+    border-left: 5px solid #007bff; /* Brand color for a testimonial border */
+    min-height: 150px; /* Fixed min-height for uniformity */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+    .testimonials-section .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+
+/* About Page Enhancements */
+
+.about-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.about-header h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffffff; /* White color for the header */
+    font-weight: bold; /* Make the text bold */
+    margin-bottom: 1.5rem;
+}
+
+.about-mission, .about-team, .about-values {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.about-mission h2, .about-team h2, .about-values h2 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.about-mission p, .about-values ul {
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.team-member {
+    margin: 10px;
+    text-align: center;
+}
+
+.team-member img {
+	max-width: 150px;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 3px solid #5664d2;
+    margin-bottom: 10px;
+    transition: box-shadow 0.5s ease-in-out;
+}
+
+.team-link {
+    color: #9fa8da; /* Maintains the existing color for links */
+    text-decoration: none; /* Optional: Removes underline from link */
+}
+
+.team-link:hover {
+    color: #a2d2ff; /* Color change on hover for visual feedback */
+}
+
+.member-info h3 {
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.member-info p {
+    color: #9fa8da;
+}
+
+
+/* Features Page Styles */
+
+.features-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.features-header h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.features-header p {
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+}
+
+.feature {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.feature-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.feature h2 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    color: #cccccc;
+}
+
+.feature, .premium-feature {
+    position: relative;
+    overflow: hidden; /* Ensure that the pseudo-elements stay within the bounds of the divs */
+}
+
+/* Regular Features Animation */
+.feature::before, .feature::after {
+    content: '';
+    position: absolute;
+    background-color: #007bff; /* Blue color for regular features */
+    transition: all 0.3s;
+}
+
+.feature::before {
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: -100%; /* Start from the left */
+}
+
+.feature::after {
+    width: 2px;
+    height: 100%;
+    top: -100%; /* Start from the top */
+    right: 0;
+}
+
+.feature:hover::before {
+    left: 0; /* End at the right */
+}
+
+.feature:hover::after {
+    top: 0; /* End at the bottom */
+}
+
+/* Premium Features Animation */
+.premium-feature::before, .premium-feature::after {
+    content: '';
+    position: absolute;
+    background-color: #ffd700; /* Gold color for premium features */
+    transition: all 0.3s;
+}
+
+.premium-feature::before {
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: -100%; /* Start from the left */
+}
+
+.premium-feature::after {
+    width: 2px;
+    height: 100%;
+    top: -100%; /* Start from the top */
+    right: 0;
+}
+
+.premium-feature:hover::before {
+    left: 0; /* End at the right */
+}
+
+.premium-feature:hover::after {
+    top: 0; /* End at the bottom */
+}
+
+
+/* Contact Page Styles */
+
+.contact-form {
+    background-color: #242424;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 40px;
+}
+
+.contact-form .form-label {
+    color: #cccccc;
+}
+
+.contact-form .form-control {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+.contact-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-social {
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+    display: inline-flex; /* Align items inline */
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px; /* Adjust the margin to create space between buttons */
+}
+
+/* Additional styles for contact information icons and text */
+.contact-info i {
+    font-size: 24px;
+    color: #007bff; /* Use your theme color */
+}
+
+.contact-info p {
+    color: #cccccc;
+}
+
+.social-button {
+    display: inline-block;
+    margin: 0 10px;
+    color: #fff; /* White icons */
+    font-size: 24px; /* Icon size */
+}
+
+.static-contact-email {
+	display: table;
+	width: auto;
+	margin: auto;
+}
+
+.social-button.twitter:hover { color: #1da1f2; } 
+.social-button.github:hover { color: #2dba4e; } 
+.static-contact-email:hover .email-icon { color: #0063b0; }
+
+.formContact {
+	color: #78e08f;
+    margin-top: 10px;
+}
+
+
+/* FAQs Page Enhanced Styles for Dark Mode */
+
+.accordion-item {
+    background-color: #212529;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.accordion-header {
+    padding: 0.4rem 1rem; /* Reduced vertical padding */
+}
+
+.accordion-button {
+    background-color: #212529;
+    color: #ffffff;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem; /* Slightly reduced font size */
+    transition: background-color 0.3s ease;
+    text-align: left;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #2c3034;
+    color: #ffffff;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-button::after {
+    filter: invert(1);
+    transition: transform 0.3s ease;
+}
+
+.accordion-collapse {
+    transition: height 0.35s ease;
+}
+
+.accordion-body {
+    background-color: #2c3034;
+    color: #dddddd;
+    font-size: 0.95rem; /* Slightly reduced font size */
+    line-height: 1.5;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+}
+
+/* Container for FAQ items to control width */
+.faq-container {
+    max-width: 900px; /* Set a max-width for the container */
+    margin: auto;
+}
+
+/* Corrected styles for the features grid */
+@media (min-width: 992px) { /* Breakpoint for large screens */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Create a three-column layout */
+        gap: 20px; /* Spacing between cards */
+    }
+    .feature {
+        margin-bottom: 20px; /* Spacing below each card */
+    }
+}
+
+
+/* Ensures that the main content area fills the space and pushes the footer to the bottom */
+
+
+/* Corrected styles for the grid container and page content to ensure the footer sticks to the bottom */
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* This ensures that the container is at least the height of the viewport */
+}
+
+.page-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* This ensures that the content expands to fill the available space */
+}
+
+.team-member:hover img {
+    box-shadow: 0 0 20px #6a7bff;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+
+
+/* REGISTER PAGE */
+.register-form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff; /* Lighter background for better contrast */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+
+.register-form h2 {
+    color: #333333; /* Darker color for heading */
+}
+
+.register-form .form-group label {
+    display: block;
+    color: #333333; /* Darker color for labels */
+    margin-bottom: .5rem;
+}
+
+.register-form .form-control {
+    border-radius: 5px; /* Adjusted for a subtler effect */
+    background-color: #ffffff; /* White background for inputs */
+    border: 1px solid #ced4da;
+    color: #495057; /* Ensuring text is readable */
+}
+
+.register-form .form-control:focus {
+    border-color: #5664d2;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(86, 100, 210, 0.6);
+}
+
+.register-form .btn-primary {
+    width: 100%;
+    border-radius: 5px; /* Matching border-radius with inputs */
+    background-color: #5664d2;
+    border: none;
+    padding: 10px 16px; /* Better padding for a more clickable button */
+    font-size: 1rem;
+}
+
+.register-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.register-form .error-message {
+    color: #d9534f; /* Color for error messages */
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.sign-in-link {
+    color: #007bff; /* Bootstrap primary blue for consistency */
+    text-decoration: none;
+}
+
+.sign-in-link:hover {
+    text-decoration: underline;
+}
+
+.social-login p {
+    font-weight: bold;
+    color: #2a2a2a; /* This makes it use the parent's text color */
+    font-size: 1rem;
+}
+
+.account-query {
+    color: #495057; /* Opt for a darker color for better readability */
+    font-size: 0.9rem; /* Adjust size as needed */
+    margin-bottom: 0.5rem; /* Adjust the bottom margin as needed */
+}
+
+/* Social Media Buttons */
+.social-btn {
+    font-size: 1.25rem; /* Adjust button icon size */
+    padding: 0.75rem 1rem; /* Larger buttons for easier interaction */
+}
+
+/* Optional: Increase Icon Size Inside Buttons */
+.social-btn i {
+    font-size: 1.5rem; /* Larger icons */
+}
+
+/* Adjusting error message visibility if needed */
+.error-message {
+    color: #d9534f; /* Ensure visibility */
+    font-weight: bold; /* Emphasize errors */
+}

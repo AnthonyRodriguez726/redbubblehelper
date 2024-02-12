@@ -5,6 +5,7 @@ from flask import current_app as app
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from .services.data_retrieval import generate_design
+from .forms import RegistrationForm
 import os
 
 
@@ -35,7 +36,13 @@ def contact():
 
 @site.route('/faqs')
 def faqs():
-    return render_template('faqs.html')   
+    return render_template('faqs.html')
+
+@site.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+
+    return render_template('register.html', form=form) 
 
 # BACKEND PROCESSES
 @site.route('/notify-signup', methods=['POST'])
